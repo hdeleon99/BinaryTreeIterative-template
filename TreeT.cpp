@@ -105,12 +105,33 @@ void TreeT<T>::RemoveHelper(TreeT::Node *&subtree, T value) {
 
 template<class T>
 void TreeT<T>::DeleteNode(TreeT::Node *&subtree) {
+    T data;
+    Node* tempPtr;
 
+    tempPtr = subtree;
+    if (subtree->left == nullptr && subtree->right == nullptr){
+        delete subtree;
+    }
+    else if (subtree->left == nullptr){
+        subtree = subtree->right;
+        delete tempPtr;
+    }
+    else if (subtree->right == nullptr){
+        subtree = subtree->left;
+        delete tempPtr;
+    }
+    else{
+        GetPredecessor(subtree->left, data);
+        subtree->info = data;
+        Delete(subtree->left, data);
+    }
 }
 
 template<class T>
 void TreeT<T>::GetPredecessor(TreeT::Node *curr, T &value) {
-
+    while(curr->right != nullptr)
+        curr = curr->right;
+    value = curr->info;
 }
 
 template<class T>
@@ -131,5 +152,36 @@ void TreeT<T>::PlacePostOrder(TreeT::Node *node) {
 template<class T>
 void TreeT<T>::PlaceInOrder(TreeT::Node *node) {
 
+}
+
+template<class T>
+void TreeT<T>::AddR(T value) {
+
+}
+
+template<class T>
+bool TreeT<T>::ContainsR(T value) {
+    return ContainsHelper(root, value); // if value somewhere under the root
+}
+
+template<class T>
+bool TreeT<T>::ContainsHelper(Node *subroot, T value) {
+
+    if (subroot == nullptr) {
+        return false;
+    }
+
+    if(subroot->value == value){
+        return true;
+    }
+
+    if (value < subroot->value) {
+        return ContainsHelper(subroot->left, value); // Look in the left subtree
+    }
+
+    if (value < subroot->value) {
+        return ContainsHelper(subroot->right, value); // Look in the right subtree
+    }
+    return false;
 }
 
