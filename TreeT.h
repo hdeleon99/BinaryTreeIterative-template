@@ -20,6 +20,7 @@ public:
     ~TreeT();
 
     TreeT& operator=(const TreeT& otherTree);
+    TreeT(const TreeT &otherTree);
 
     void Add(T value);       // Add value to the tree
     void Remove(T value);    // Remove value from the tree
@@ -53,9 +54,11 @@ private:
 
     void CopyHelper(Node*& thisTree, Node* otherTree);
 
-    bool ContainsHelper(Node* subroot, T value)
+    bool ContainsHelper(Node* subroot, T value);
+
+    void copyOther(TreeT& otherTree);
     // Used for iterator
-    queue<T> iterArr;     // queue used for the iterator
+    queue<T> iterQue;     // queue used for the iterator
     void PlacePreOrder(Node* node);
     void PlacePostOrder(Node* node);
     void PlaceInOrder(Node* node);

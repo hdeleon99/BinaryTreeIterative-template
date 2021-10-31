@@ -5,7 +5,7 @@
 #include <iostream>
 #include "TreeT.h"
 
-int main(void) {
+int main() {
 
     TreeT<int> treeA;
     ///
@@ -21,6 +21,7 @@ int main(void) {
     tree->Add(10);
     tree->Add(2);
 
+    tree->Contains(2);
     tree->ResetIterator(IN_ORDER);
     for (int i = 0; i < tree->Size(); i++) {
         cout << tree->GetNextItem() << " ";
